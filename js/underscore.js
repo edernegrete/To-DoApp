@@ -1,8 +1,9 @@
-
+//     Underscore.js 1.3.3
 (function() {
 
 
   var root = this;
+
 
   var previousUnderscore = root._;
 
@@ -89,7 +90,6 @@
     if (!initial) throw new TypeError('Reduce of empty array with no initial value');
     return memo;
   };
-
   _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
     var initial = arguments.length > 2;
     if (obj == null) obj = [];
@@ -102,6 +102,7 @@
     return initial ? _.reduce(reversed, iterator, memo, context) : _.reduce(reversed, iterator);
   };
 
+
   _.find = _.detect = function(obj, iterator, context) {
     var result;
     any(obj, function(value, index, list) {
@@ -113,6 +114,9 @@
     return result;
   };
 
+
+
+
   _.filter = _.select = function(obj, iterator, context) {
     var results = [];
     if (obj == null) return results;
@@ -123,6 +127,7 @@
     return results;
   };
 
+
   _.reject = function(obj, iterator, context) {
     var results = [];
     if (obj == null) return results;
@@ -131,7 +136,6 @@
     });
     return results;
   };
-
   _.every = _.all = function(obj, iterator, context) {
     var result = true;
     if (obj == null) return result;
@@ -141,7 +145,6 @@
     });
     return !!result;
   };
-
   var any = _.some = _.any = function(obj, iterator, context) {
     iterator || (iterator = _.identity);
     var result = false;
@@ -152,7 +155,6 @@
     });
     return !!result;
   };
-
   _.include = _.contains = function(obj, target) {
     var found = false;
     if (obj == null) return found;
@@ -185,6 +187,7 @@
     return result.value;
   };
 
+
   _.min = function(obj, iterator, context) {
     if (!iterator && _.isArray(obj) && obj[0] === +obj[0]) return Math.min.apply(Math, obj);
     if (!iterator && _.isEmpty(obj)) return Infinity;
@@ -196,6 +199,7 @@
     return result.value;
   };
 
+
   _.shuffle = function(obj) {
     var shuffled = [], rand;
     each(obj, function(value, index, list) {
@@ -205,6 +209,7 @@
     });
     return shuffled;
   };
+
 
   _.sortBy = function(obj, val, context) {
     var iterator = _.isFunction(val) ? val : function(obj) { return obj[val]; };
@@ -249,10 +254,10 @@
     return _.values(obj);
   };
 
+
   _.size = function(obj) {
     return _.isArray(obj) ? obj.length : _.keys(obj).length;
   };
-
 
   _.first = _.head = _.take = function(array, n, guard) {
     return (n != null) && !guard ? slice.call(array, 0, n) : array[0];
@@ -262,6 +267,7 @@
     return slice.call(array, 0, array.length - ((n == null) || guard ? 1 : n));
   };
 
+  
   _.last = function(array, n, guard) {
     if ((n != null) && !guard) {
       return slice.call(array, Math.max(array.length - n, 0));
@@ -274,9 +280,11 @@
     return slice.call(array, (index == null) || guard ? 1 : index);
   };
 
+
   _.compact = function(array) {
     return _.filter(array, function(value){ return !!value; });
   };
+
 
   _.flatten = function(array, shallow) {
     return _.reduce(array, function(memo, value) {
@@ -286,6 +294,7 @@
     }, []);
   };
 
+
   _.without = function(array) {
     return _.difference(array, slice.call(arguments, 1));
   };
@@ -293,6 +302,7 @@
   _.uniq = _.unique = function(array, isSorted, iterator) {
     var initial = iterator ? _.map(array, iterator) : array;
     var results = [];
+
     if (array.length < 3) isSorted = true;
     _.reduce(initial, function (memo, value, index) {
       if (isSorted ? _.last(memo) !== value || !memo.length : !_.include(memo, value)) {
@@ -303,6 +313,7 @@
     }, []);
     return results;
   };
+
 
   _.union = function() {
     return _.uniq(_.flatten(arguments, true));
@@ -321,6 +332,7 @@
     var rest = _.flatten(slice.call(arguments, 1), true);
     return _.filter(array, function(value){ return !_.include(rest, value); });
   };
+
 
   _.zip = function() {
     var args = slice.call(arguments);
@@ -386,7 +398,6 @@
       return self;
     };
   };
-
   _.bindAll = function(obj) {
     var funcs = slice.call(arguments, 1);
     if (funcs.length == 0) funcs = _.functions(obj);
@@ -408,10 +419,12 @@
     return setTimeout(function(){ return func.apply(null, args); }, wait);
   };
 
+ 
   _.defer = function(func) {
     return _.delay.apply(_, [func, 1].concat(slice.call(arguments, 1)));
   };
 
+  
   _.throttle = function(func, wait) {
     var context, args, timeout, throttling, more, result;
     var whenDone = _.debounce(function(){ more = throttling = false; }, wait);
@@ -434,6 +447,7 @@
     };
   };
 
+ 
   _.debounce = function(func, wait, immediate) {
     var timeout;
     return function() {
@@ -464,6 +478,7 @@
     };
   };
 
+
   _.compose = function() {
     var funcs = arguments;
     return function() {
@@ -474,6 +489,7 @@
       return args[0];
     };
   };
+
 
   _.after = function(times, func) {
     if (times <= 0) return func();
@@ -490,9 +506,12 @@
     return keys;
   };
 
+
   _.values = function(obj) {
     return _.map(obj, _.identity);
   };
+
+
 
   _.functions = _.methods = function(obj) {
     var names = [];
@@ -502,6 +521,7 @@
     return names.sort();
   };
 
+  // Extend a given object with all the properties in passed-in object(s).
   _.extend = function(obj) {
     each(slice.call(arguments, 1), function(source) {
       for (var prop in source) {
@@ -511,6 +531,7 @@
     return obj;
   };
 
+
   _.pick = function(obj) {
     var result = {};
     each(_.flatten(slice.call(arguments, 1)), function(key) {
@@ -518,6 +539,7 @@
     });
     return result;
   };
+
 
   _.defaults = function(obj) {
     each(slice.call(arguments, 1), function(source) {
@@ -527,6 +549,7 @@
     });
     return obj;
   };
+
 
   _.clone = function(obj) {
     if (!_.isObject(obj)) return obj;
@@ -538,17 +561,27 @@
     return obj;
   };
 
+
   function eq(a, b, stack) {
+
+
     if (a === b) return a !== 0 || 1 / a == 1 / b;
+
     if (a == null || b == null) return a === b;
+
     if (a._chain) a = a._wrapped;
     if (b._chain) b = b._wrapped;
+
     if (a.isEqual && _.isFunction(a.isEqual)) return a.isEqual(b);
     if (b.isEqual && _.isFunction(b.isEqual)) return b.isEqual(a);
+
     var className = toString.call(a);
     if (className != toString.call(b)) return false;
     switch (className) {
+
       case '[object String]':
+
+
         return a == String(b);
       case '[object Number]':
         return a != +a ? b != +b : (a == 0 ? 1 / a == 1 / b : a == +b);
@@ -635,41 +668,53 @@
     return toString.call(obj) == '[object String]';
   };
 
+
   _.isNumber = function(obj) {
     return toString.call(obj) == '[object Number]';
   };
+
 
   _.isFinite = function(obj) {
     return _.isNumber(obj) && isFinite(obj);
   };
 
+
   _.isNaN = function(obj) {
+
     return obj !== obj;
   };
+
 
   _.isBoolean = function(obj) {
     return obj === true || obj === false || toString.call(obj) == '[object Boolean]';
   };
 
+
   _.isDate = function(obj) {
     return toString.call(obj) == '[object Date]';
   };
+
 
   _.isRegExp = function(obj) {
     return toString.call(obj) == '[object RegExp]';
   };
 
+
   _.isNull = function(obj) {
     return obj === null;
   };
+
 
   _.isUndefined = function(obj) {
     return obj === void 0;
   };
 
+
   _.has = function(obj, key) {
     return hasOwnProperty.call(obj, key);
   };
+
+
 
 
   _.noConflict = function() {
@@ -677,16 +722,22 @@
     return this;
   };
 
+
   _.identity = function(value) {
     return value;
   };
+
 
   _.times = function (n, iterator, context) {
     for (var i = 0; i < n; i++) iterator.call(context, i);
   };
 
+
   _.escape = function(string) {
+    return (''+string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/\//g,'&#x2F;');
   };
+
+
 
   _.result = function(object, property) {
     if (object == null) return null;
@@ -711,6 +762,7 @@
     interpolate : /<%=([\s\S]+?)%>/g,
     escape      : /<%-([\s\S]+?)%>/g
   };
+
 
   var noMatch = /.^/;
 
@@ -751,6 +803,7 @@
         return "';\n" + unescape(code) + "\n;__p+='";
       }) + "';\n";
 
+
     if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
 
     source = "var __p='';" +
@@ -769,18 +822,21 @@
     return template;
   };
 
+
   _.chain = function(obj) {
     return _(obj).chain();
   };
 
-
   var wrapper = function(obj) { this._wrapped = obj; };
 
+
   _.prototype = wrapper.prototype;
+
 
   var result = function(obj, chain) {
     return chain ? _(obj).chain() : obj;
   };
+
 
   var addToWrapper = function(name, func) {
     wrapper.prototype[name] = function() {
@@ -790,7 +846,9 @@
     };
   };
 
+
   _.mixin(_);
+
 
   each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
     var method = ArrayProto[name];
