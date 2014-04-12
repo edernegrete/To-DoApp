@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>To-Do List | @ederyairr </title>
+  <link href='http://fonts.googleapis.com/css?family=Sniglet|Gochi+Hand' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="css/estilos.css"/>
+  </head>
+
+<body>
+    <div id="todoapp" class="todoapp">
+     <header>
+	  <h1>To-do</h1>
+      <input id="new-todo" type="text" placeholder="¿Qué necesitas hacer?">
+    </header>
+  
+
+    <section id="main" class="main">
+      <input id="toggle-all" type="checkbox">
+      <label for="toggle-all">Marca completo todo</label>
+      <ul id="todo-list"class="todo-list"></ul>
+    </section>
+
+    <footer>
+      <a id="clear-completed">Limpiar</a>
+      <div id="todo-count"></div>
+    </footer>
+    
+  </div>
+  
+  <div class="instructions">
+    Doble click para editar
+  </div>
+    <aside>
+      <ul>
+        <a href=""><li class="github"></li></a>
+        <a href=""><li class="twitter"></li></a>
+      </ul>
+    </aside>
+
+  <script src="js/jquery-1.7.1.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/backbone.js"></script>
+  <script src="js/backbone-localstorage.js"></script>
+  <script src="js/todos.js"></script>
+
+  <script type="text/template" id="item-template">
+    <div class="view">
+      <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+      <label><%- titulo %></label>
+      <a class="destroy"></a>
+    </div>
+    <input class="edit" type="text" value="<%= titulo %>" />
+  </script>
+
+  <script type="text/template" id="stats-template">
+    <% if (done) { %>
+      <a id="clear-completed" class="clear-completed">Limpia los que ya completaste <%= done %> <%= done == 1 ? '' : 'items' %></a>
+    <% } %>
+    <div class="todo-count">Te queda <b><%= remaining %></b>  <%= remaining == 1 ? 'por completar' : '' %></div>
+  </script>
+  </body>
+  </html>
